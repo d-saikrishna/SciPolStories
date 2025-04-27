@@ -12,25 +12,34 @@
 <button class="mask-button" id="mask-up-button">Mask Up</button>
 
 <!-- Info Box for Mask Information -->
-<div id="mask-info-box" style="position:absolute; margin-left: 10px; top: 70px; font-size: 20px; background-color: #ffffffdf; padding: 10px; border: 1px solid #ccc; border-radius: 10px; width: 250px; visibility: hidden">
+<div id="mask-info-box">
   N95 masks are helpful in reducing exposure to air pollution by filtering out at least 95% of particulate matter. It can significantly improve air quality for individuals in polluted environments.
 </div>
 
-<svg viewBox="0 0 1000 700">
-  <!-- Three parallel arc paths -->
-  <path id="arc2" d="M 500 380 A 300 200 60 0 0 730 280 A 300 200 60 0 1 770 280 A 300 200 60 0 1 790 390 A 300 200 60 0 1 750 400 " />
-  <path id="arc1" d="M 500 400 A 300 200 60 0 0 730 280 A 300 200 60 0 1 770 280 A 300 200 60 0 1 790 390 A 300 200 60 0 1 830 400" />
-  <!-- Image positioned relative to viewBox -->
-  <image 
-    href="lungsbg.png" 
-    x="620" 
-    y="200" 
-    width="350" 
-    height="350" 
-    id="image" 
-    preserveAspectRatio="xMidYMid meet"
-  />
-</svg>
+<div id="container">
+  <svg viewBox="0 0 1000 700">
+    <!-- Three parallel arc paths -->
+    <path id="arc2" d="M 500 380 A 300 200 60 0 0 730 280 A 300 200 60 0 1 770 280 A 300 200 60 0 1 790 390 A 300 200 60 0 1 750 400 " />
+    <path id="arc1" d="M 500 400 A 300 200 60 0 0 730 280 A 300 200 60 0 1 770 280 A 300 200 60 0 1 790 390 A 300 200 60 0 1 830 400" />
+    <!-- Image positioned relative to viewBox -->
+    <image 
+      href="lungsbg.png" 
+      x="620" 
+      y="200" 
+      width="350" 
+      height="350" 
+      id="image" 
+    />
+  </svg>
+
+  <div id="footer">
+    <p>Get in touch:
+      <a href="mailto:saikrishnadammalapati@gmail.com">Email</a> |
+      <a href="https://www.linkedin.com/in/saikrishnadammalapati/"> LinkedIn</a> | 
+      <a href="https://github.com/d-saikrishna" target="_blank">GitHub</a>.
+    </p>
+  </div>
+</div>
 
 <script>
 
