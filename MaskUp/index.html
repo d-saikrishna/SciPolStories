@@ -4,36 +4,7 @@
   <meta charset="UTF-8">
   <title>Mask up!</title>
   <link rel="icon" href="maskup.png" type="image/jpeg">
-  <style>
-    svg {
-      width: 100%;
-      height: 100vh;
-      background: #f4660760;
-    }
-    circle {
-      fill: steelblue;
-    }
-    path {
-      fill: none;
-      stroke: rgba(211, 211, 211, 0.33);
-      stroke-width: 2;
-    }
-    
-    /* Button Style */
-    .mask-button {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      padding: 10px 20px;
-      background-color: #ff6347;
-      color: white;
-      font-size: 18px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
@@ -41,8 +12,8 @@
 <button class="mask-button" id="mask-up-button">Mask Up</button>
 
 <!-- Info Box for Mask Information -->
-<div id="mask-info-box" style="position:absolute; margin-left: 10px; top: 70px; font-size: 16px; background-color: #ffffffdf; padding: 10px; border: 1px solid #ccc; border-radius: 10px; width: 250px; visibility: hidden">
-  N95 masks are helpful in reducing exposure to air pollution by filtering out at least 95% of particulate matter, which can significantly improve air quality for individuals in polluted environments.
+<div id="mask-info-box" style="position:absolute; margin-left: 10px; top: 70px; font-size: 20px; background-color: #ffffffdf; padding: 10px; border: 1px solid #ccc; border-radius: 10px; width: 250px; visibility: hidden">
+  N95 masks are helpful in reducing exposure to air pollution by filtering out at least 95% of particulate matter. It can significantly improve air quality for individuals in polluted environments.
 </div>
 
 <svg viewBox="0 0 1000 700">
