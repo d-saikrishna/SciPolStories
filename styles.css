@@ -88,8 +88,14 @@ footer {
     bottom: 0;
     width: 100%;
 }
+
+footer p {
+    padding-right: 10px;
+}
+
 footer a {
     color: white;
+    padding-right: 10px;
 }
 
 @media (max-width: 600px) {
@@ -112,11 +118,27 @@ footer a {
         color: #ffffff;
         box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         justify-content: space-between;
         position: relative;
         bottom: 0;
         width: 100%;
+    }
+
+    footer p {
+        padding-right: 0;
+    }
+
+    footer a {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        padding: 3px;
+    }
+
+    footer a img {
+        width: 16px;
     }
     
 }

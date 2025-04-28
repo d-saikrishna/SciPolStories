@@ -78,3 +78,55 @@ footer {
     bottom: 0;
     width: 100%;
 }
+footer p {
+  padding-right: 10px;
+}
+
+footer a {
+  color: white;
+  padding-right: 10px;
+}
+
+
+@media (max-width: 600px) {
+  main {
+      padding: 5px;
+      max-width: 600px;
+      margin: auto;
+      line-height: 1.8;
+      overflow-y: auto;
+  }
+
+  footer {
+      background: black;
+      text-align: center;
+      font-size: 0.9em;
+      color: #ffffff;
+      box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      bottom: 0;
+      width: 100%;
+  }
+
+  footer p {
+      padding-right: 0;
+  }
+  
+
+  footer a {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      padding: 3px;
+      color: white;
+  }
+
+  footer a img {
+      width: 16px;
+  }
+  
+}
