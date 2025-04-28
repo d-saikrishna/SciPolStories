@@ -1,0 +1,68 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Open Sans', sans-serif;
+    color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    background: #004AAD;
+    padding: 20px;
+    text-align: center;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 2.5em;
+    color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+main {
+    flex: 1;
+    padding: 40px;
+    max-width: 800px;
+    margin: 0 auto 0 auto ;
+    line-height: 1.8;
+    overflow-y: auto;
+}
+
+.poem-title {
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 2em;
+    color: #004AAD;
+}
+
+.poem-author {
+    font-size: 1em;
+    font-style: italic;
+    color: #004AAD;
+}
+
+.poem-author a {
+    font-size: 1em;
+    font-style: italic;
+    color: #004AAD;
+}
+
+.poem {
+    white-space: pre-wrap; /* preserve line breaks */
+    font-size: 1.2em;
+    color: #004AAD;
+    font-style: italic;
+}
+
+footer {
+    background: #004AAD;
+    text-align: center;
+    padding: 10px;
+    font-size: 0.9em;
+    color: #ffffff;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+footer a {
+    color: white;
+}

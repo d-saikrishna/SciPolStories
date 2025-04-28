@@ -1,0 +1,93 @@
+html, body {
+    margin: 0;
+    overflow-x: hidden;
+}
+#container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#portfoliobox {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items:start;
+}
+.portfolio {
+    width: 100%;
+    text-align: left;
+    padding-left: 5% ;
+}
+
+.portfolio h3 {
+    color: #004AAD;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 24px;
+}
+
+
+.portfolio ul {
+    list-style: none;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 24px;
+}
+
+.portfolio li {
+    padding: 0.2rem;
+}
+
+.portfolio ul a {
+    color: #004AAD;
+}
+
+
+
+.tooltip {
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .tooltip .tooltiptext {
+    visibility: hidden;
+    width: 200%;
+    background-color: #004bad31;
+    color: #000000;
+    text-align: center;
+    border-radius: 6px;
+    padding: 4px;
+    position: absolute;
+    z-index: 1;
+    bottom: -50%;
+    left: 110%;
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 20px;
+  }
+
+  .tooltip:hover {
+    display: inline-block;
+  }
+  
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+  }
+
+footer {
+    background: #004AAD;
+    text-align: center;
+    font-size: 0.9em;
+    color: #ffffff;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+footer a {
+    color: white;
+}
