@@ -91,3 +91,32 @@ footer {
 footer a {
     color: white;
 }
+
+@media (max-width: 600px) {
+    #portfoliobox {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items:start;
+    }
+
+    .tooltip:hover .tooltiptext {
+        visibility: hidden;
+        opacity: 1;
+      }
+
+    footer {
+        background: #004AAD;
+        text-align: center;
+        font-size: 0.9em;
+        color: #ffffff;
+        box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        position: relative;
+        bottom: 0;
+        width: 100%;
+    }
+    
+}
