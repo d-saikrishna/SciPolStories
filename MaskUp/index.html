@@ -12,7 +12,26 @@
 
 <!-- Mask Up/Down Button -->
 <div id="container">
-  
+  <div id="topmessage">
+    <p> Hi, fellow breather<span id="location">. </span><br>
+      <span id="aqi"> You are most probably breathing polluted air.</span> <br>
+      <span id="advice">Consider masking up!</span> </p>
+  </div>
+  <svg width="100%" height="30">
+    <rect x="0%"     y="0" width="16.66%" height="30" fill="#274e13ff" />  <!-- Good -->
+    <rect x="16.66%" y="0" width="16.66%" height="30" fill="#93c47dff" />  <!-- Moderate -->
+    <rect x="33.32%" y="0" width="16.66%" height="30" fill="#f2f542ff" />  <!-- Unhealthy for SG -->
+    <rect x="49.98%" y="0" width="16.66%" height="30" fill="#f59042ff" />  <!-- Unhealthy -->
+    <rect x="66.64%" y="0" width="16.66%" height="30" fill="#ff0000ff" />  <!-- Very Unhealthy -->
+    <rect x="83.3%"  y="0" width="16.7%"  height="30" fill="#753b3bff" />  <!-- Hazardous -->
+
+    <!-- Numbers (AQI Labels) -->
+  <text x="16.66%"  y="16">50</text>
+  <text x="33.32%"  y="16" style="fill: black;">100</text>
+  <text x="49.98%"  y="16" style="fill: black;">200</text>
+  <text x="66.64%"  y="16">300</text>
+  <text x="83.3%"   y="16">400</text>
+  </svg>
   <div id="buttonbox">
     <button id="maskbutton"> 😷 Mask Up! 😷 </button>
     <!-- Info Box for Mask Information -->
@@ -21,7 +40,7 @@
     </div>
   </div>
 
-  <svg viewBox="0 0 1000 700" preserveAspectRatio="xMidYMid meet">
+  <svg id="maskupsvg" viewBox="0 0 1000 700" preserveAspectRatio="xMidYMid meet">
     <!-- Three parallel arc paths -->
     <path id="arc1" d="M 300 380 A 300 200 60 0 0 480 250 A 300 200 60 0 1 520 250 A 300 200 60 0 1 550 360 A 300 200 60 0 1 500 380" />
     <path id="arc2" d="M 300 400 A 300 200 60 0 0 480 250 A 300 200 60 0 1 520 250 A 300 200 60 0 1 550 360 A 300 200 60 0 1 600 380" />
@@ -46,151 +65,6 @@
   </footer>
 
 </div>
-
-<script>
-
-  const svg = document.querySelector('svg');
-  const paths = [document.getElementById('arc1'), document.getElementById('arc2')];
-  const image = document.getElementById('image');
-  
-  // Get image position in SVG coordinates
-  const imageX = parseFloat(image.getAttribute('x'));
-  const imageY = parseFloat(image.getAttribute('y'));
-  const imageWidth = parseFloat(image.getAttribute('width'));
-  const imageHeight = parseFloat(image.getAttribute('height'));
-    
-  // Create 50 circles moving along arcs
-  const circles = [];
-  const path1 = paths[0];  // arc1
-  const path2 = paths[1];  // arc2
-
-function createCircles(maskApplied) {
-  // Clear the previous circles
-  circles.forEach(circle => {
-    svg.removeChild(circle.el);  // Remove circle element from SVG
-  });
-  circles.length = 0; // Clear existing circles
-  for (let i = 0; i < 50; i++) {
-    const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-    circle.setAttribute('r', 4);
-    svg.appendChild(circle);
-
-    // When the mask is not applied, 50% circles on each path
-    // When the mask is applied, 5% circles on one path and 95% on the other
-    const pathToUse = maskApplied 
-      ? (Math.random() > 0.05 ? path2 : path1)  // 95% on path2 and 5% on path1 when mask is applied
-      : (Math.floor(Math.random() * 2) === 0 ? path1 : path2);  // 50% on path1 and 50% on path2 when mask is not applied
-
-    circles.push({
-      el: circle,
-      path: pathToUse,
-      progress: Math.random(),
-      speed: 0.001 + Math.random() * 0.002
-    });
-  }
-}
-
-// Initial creation of circles
-createCircles(false);
-
-  // Create 500 background particles
-  const particles = [];
-  for (let i = 0; i < 500; i++) {
-    const particle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-    particle.setAttribute('r', 4);
-    particle.setAttribute('fill', 'rgba(0, 0, 255, 0.5)');
-    svg.appendChild(particle);
-    particles.push({
-      el: particle,
-      x: Math.random() * 1000, 
-      y: Math.random() * 700,
-      dx: (Math.random() - 0.5) * 0.5,
-      dy: (Math.random() - 0.5) * 0.5,
-    });
-  }
-
-  function animate() {
-    // Move circles along arcs
-    circles.forEach(c => {
-      c.progress += c.speed;
-      if (c.progress > 1) c.progress = 0;
-
-      const length = c.path.getTotalLength();
-      const point = c.path.getPointAtLength(c.progress * length);
-
-      c.el.setAttribute('cx', point.x);
-      c.el.setAttribute('cy', point.y);
-    });
-
-    // Move background particles
-    particles.forEach(p => {
-      p.x += p.dx;
-      p.y += p.dy;
-
-      // Check if particle is within image bounds using viewBox coordinates
-      if (p.x >= imageX+30 && p.x <= imageX + imageWidth-30 &&
-          p.y >= imageY && p.y <= imageY + imageHeight) {
-        p.el.setAttribute('visibility', 'hidden');
-      } else {
-        p.el.setAttribute('visibility', 'visible');
-      }
-
-      // Bounce off viewBox boundaries
-      if (p.x <= 0 || p.x >= 1000) p.dx = -p.dx;
-      if (p.y <= 0 || p.y >= 700) p.dy = -p.dy;
-
-      p.el.setAttribute('cx', p.x);
-      p.el.setAttribute('cy', p.y);
-    });
-
-    requestAnimationFrame(animate);
-  }
-
-  animate();
-
-  // Handle window resize
-  window.addEventListener('resize', () => {
-    particles.forEach(p => {
-      if (p.x < 0) p.x = 0;
-      if (p.x > 1000) p.x = 1000;
-      if (p.y < 0) p.y = 0;
-      if (p.y > 700) p.y = 700;
-    });
-  });
-
-  // Event listener for the toggle button
-  let maskApplied = false; // Track whether the mask is applied
-  document.getElementById('maskbutton').addEventListener('click', function() {
-    maskApplied = !maskApplied; // Toggle mask state
-
-    // Change the button text
-    this.textContent = maskApplied ? 'Mask Down' : '😷 Mask Up! 😷';
-
-    // Change the info-box font size
-    infobox = document.getElementById('mask-info-box');
-    infobox.style.fontSize = maskApplied ? '16px' : '5px';
-
-    // Switch image based on the mask state
-    image.setAttribute('href', maskApplied ? 'lungsbg_mask.png' : 'lungsbg.png');
-
-    // Update arcs based on the mask state
-    if (maskApplied) {
-      const randomEndValue = Math.random() > 0.5 ? 500 : 600;
-      console.log(randomEndValue);
-      document.getElementById('arc1').setAttribute('d', `M 300 380 A 300 200 60 0 0 480 250 A 300 200 60 0 1 520 250 A 300 200 60 0 1 550 360 A 300 200 60 0 1 ${randomEndValue} 380`);
-      document.getElementById('arc2').setAttribute('d', 'M 300 400 A 300 200 60 0 0 480 250 A 300 200 80 0 0 400 150');
-      // Show the mask info box
-      document.getElementById('mask-info-box').style.visibility = "visible";
-    } else {
-      document.getElementById('arc1').setAttribute('d', 'M 300 380 A 300 200 60 0 0 480 250 A 300 200 60 0 1 520 250 A 300 200 60 0 1 550 360 A 300 200 60 0 1 500 380');
-      document.getElementById('arc2').setAttribute('d', 'M 300 400 A 300 200 60 0 0 480 250 A 300 200 60 0 1 520 250 A 300 200 60 0 1 550 360 A 300 200 60 0 1 600 380');
-      // Hide the mask info box
-      document.getElementById('mask-info-box').style.visibility = "hidden";
-    }
-
-    createCircles(maskApplied);
-
-  });
-</script>
+<script src="script.js"></script>
 </body>
 </html>
