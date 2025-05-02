@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mask up! | Sci-Pol Stories</title>
+  <link rel="icon" href="maskup.png" type="image/jpeg">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+
+<!-- Mask Up/Down Button -->
+<div id="container">
+  
+  <div id="buttonbox">
+    <button id="maskbutton"> 😷 Mask Up! 😷 </button>
+    <!-- Info Box for Mask Information -->
+    <div id="mask-info-box">
+      N95 masks reduce exposure to air pollution by filtering out at least 95% of particulate matter. It can significantly improve air quality for individuals in polluted environments.
+    </div>
+  </div>
+
+  <svg viewBox="0 0 1000 700" preserveAspectRatio="xMidYMid meet">
+    <!-- Three parallel arc paths -->
+    <path id="arc1" d="M 300 380 A 300 200 60 0 0 480 250 A 300 200 60 0 1 520 250 A 300 200 60 0 1 550 360 A 300 200 60 0 1 500 380" />
+    <path id="arc2" d="M 300 400 A 300 200 60 0 0 480 250 A 300 200 60 0 1 520 250 A 300 200 60 0 1 550 360 A 300 200 60 0 1 600 380" />
+    <!-- Image positioned relative to viewBox -->
+    <image 
+      href="lungsbg.png" 
+      x="350" 
+      y="150" 
+      width="400" 
+      height="400" 
+      id="image" 
+    />
+  </svg>
+
+  <footer>
+    <p> <a href="/index.html">© 2025 Sci Pol Stories</a></p>
+    <p>Say hello!
+        <a href="mailto:saikrishnadammalapati@gmail.com"> <i class="fa fa-envelope"></i> Email</a>  
+        <a href="https://www.linkedin.com/in/saikrishnadammalapati/"> <img src="https://d-saikrishna.github.io/assets/linkedin.png">  LinkedIn</a> 
+        <a href="https://github.com/d-saikrishna" target="_blank"> <img src="https://d-saikrishna.github.io/assets/github.png"> GitHub</a>
+    </p>      
+  </footer>
+
+</div>
+
+<script>
+
+  const svg = document.querySelector('svg');
+  const paths = [document.getElementById('arc1'), document.getElementById('arc2')];
+  const image = document.getElementById('image');
+  
+  // Get image position in SVG coordinates
+  const imageX = parseFloat(image.getAttribute('x'));
+  const imageY = parseFloat(image.getAttribute('y'));
+  const imageWidth = parseFloat(image.getAttribute('width'));
+  const imageHeight = parseFloat(image.getAttribute('height'));
+    
+  // Create 50 circles moving along arcs
+  const circles = [];
+  const path1 = paths[0];  // arc1
+  const path2 = paths[1];  // arc2
+
+function createCircles(maskApplied) {
+  // Clear the previous circles
+  circles.forEach(circle => {
+    svg.removeChild(circle.el);  // Remove circle element from SVG
+  });
+  circles.length = 0; // Clear existing circles
+  for (let i = 0; i < 50; i++) {
+    const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+    circle.setAttribute('r', 4);
+    svg.appendChild(circle);
+
+    // When the mask is not applied, 50% circles on each path
+    // When the mask is applied, 5% circles on one path and 95% on the other
+    const pathToUse = maskApplied 
+      ? (Math.random() > 0.05 ? path2 : path1)  // 95% on path2 and 5% on path1 when mask is applied
+      : (Math.floor(Math.random() * 2) === 0 ? path1 : path2);  // 50% on path1 and 50% on path2 when mask is not applied
+
+    circles.push({
+      el: circle,
+      path: pathToUse,
+      progress: Math.random(),
+      speed: 0.001 + Math.random() * 0.002
+    });
+  }
+}
+
+// Initial creation of circles
+createCircles(false);
+
+  // Create 500 background particles
+  const particles = [];
+  for (let i = 0; i < 500; i++) {
+    const particle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+    particle.setAttribute('r', 4);
+    particle.setAttribute('fill', 'rgba(0, 0, 255, 0.5)');
+    svg.appendChild(particle);
+    particles.push({
+      el: particle,
+      x: Math.random() * 1000, 
+      y: Math.random() * 700,
+      dx: (Math.random() - 0.5) * 0.5,
+      dy: (Math.random() - 0.5) * 0.5,
+    });
+  }
+
+  function animate() {
+    // Move circles along arcs
+    circles.forEach(c => {
+      c.progress += c.speed;
+      if (c.progress > 1) c.progress = 0;
+
+      const length = c.path.getTotalLength();
+      const point = c.path.getPointAtLength(c.progress * length);
+
+      c.el.setAttribute('cx', point.x);
+      c.el.setAttribute('cy', point.y);
+    });
+
+    // Move background particles
+    particles.forEach(p => {
+      p.x += p.dx;
+      p.y += p.dy;
+
+      // Check if particle is within image bounds using viewBox coordinates
+      if (p.x >= imageX+30 && p.x <= imageX + imageWidth-30 &&
+          p.y >= imageY && p.y <= imageY + imageHeight) {
+        p.el.setAttribute('visibility', 'hidden');
+      } else {
+        p.el.setAttribute('visibility', 'visible');
+      }
+
+      // Bounce off viewBox boundaries
+      if (p.x <= 0 || p.x >= 1000) p.dx = -p.dx;
+      if (p.y <= 0 || p.y >= 700) p.dy = -p.dy;
+
+      p.el.setAttribute('cx', p.x);
+      p.el.setAttribute('cy', p.y);
+    });
+
+    requestAnimationFrame(animate);
+  }
+
+  animate();
+
+  // Handle window resize
+  window.addEventListener('resize', () => {
+    particles.forEach(p => {
+      if (p.x < 0) p.x = 0;
+      if (p.x > 1000) p.x = 1000;
+      if (p.y < 0) p.y = 0;
+      if (p.y > 700) p.y = 700;
+    });
+  });
+
+  // Event listener for the toggle button
+  let maskApplied = false; // Track whether the mask is applied
+  document.getElementById('maskbutton').addEventListener('click', function() {
+    maskApplied = !maskApplied; // Toggle mask state
+
+    // Change the button text
+    this.textContent = maskApplied ? 'Mask Down' : '😷 Mask Up! 😷';
+
+    // Change the info-box font size
+    infobox = document.getElementById('mask-info-box');
+    infobox.style.fontSize = maskApplied ? '16px' : '5px';
+
+    // Switch image based on the mask state
+    image.setAttribute('href', maskApplied ? 'lungsbg_mask.png' : 'lungsbg.png');
+
+    // Update arcs based on the mask state
+    if (maskApplied) {
+      const randomEndValue = Math.random() > 0.5 ? 500 : 600;
+      console.log(randomEndValue);
+      document.getElementById('arc1').setAttribute('d', `M 300 380 A 300 200 60 0 0 480 250 A 300 200 60 0 1 520 250 A 300 200 60 0 1 550 360 A 300 200 60 0 1 ${randomEndValue} 380`);
+      document.getElementById('arc2').setAttribute('d', 'M 300 400 A 300 200 60 0 0 480 250 A 300 200 80 0 0 400 150');
+      // Show the mask info box
+      document.getElementById('mask-info-box').style.visibility = "visible";
+    } else {
+      document.getElementById('arc1').setAttribute('d', 'M 300 380 A 300 200 60 0 0 480 250 A 300 200 60 0 1 520 250 A 300 200 60 0 1 550 360 A 300 200 60 0 1 500 380');
+      document.getElementById('arc2').setAttribute('d', 'M 300 400 A 300 200 60 0 0 480 250 A 300 200 60 0 1 520 250 A 300 200 60 0 1 550 360 A 300 200 60 0 1 600 380');
+      // Hide the mask info box
+      document.getElementById('mask-info-box').style.visibility = "hidden";
+    }
+
+    createCircles(maskApplied);
+
+  });
+</script>
+</body>
+</html>
