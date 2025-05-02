@@ -1,7 +1,7 @@
 const svg = document.getElementById('maskupsvg');
 const paths = [document.getElementById('arc1'), document.getElementById('arc2')];
 const image = document.getElementById('image');
-let pm25value = 50; // default fallback
+let pm25value = 70; // default fallback
 
 // Get image position in SVG coordinates
 const imageX = parseFloat(image.getAttribute('x'));
@@ -146,7 +146,7 @@ function animate() {
       document.getElementById('mask-info-box').style.visibility = "hidden";
     }
 
-    createCircles(maskApplied, Math.floor(pm25value / 3));
+    createCircles(maskApplied, Math.floor(pm25value / 5));
   });
 
 // FUNCTION to return a color based on AQI value
@@ -178,7 +178,14 @@ fetch(url)
     if (data.status === 'ok') {
         const aqi = data.data.aqi;
         const pm25 = data.data.iaqi.pm25?.v;
-        pm25value = pm25;
+        const monitor_source = data.data.attributions[0].name;
+        document.getElementById('sourcee').innerHTML  = `<tspan x="300" y="690">AQI data by ${monitor_source}</tspan>
+  <tspan x="875" y="690">AQI API by World Air Quality Index</tspan>`;
+        if (pm25 == 999) {
+          pm25value = 70;
+        } else {
+          pm25value = pm25;
+        }
         const loc = data.data.city.name;
         const aq = getAQ(aqi);
 
