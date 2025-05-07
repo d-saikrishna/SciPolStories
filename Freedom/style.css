@@ -1,0 +1,187 @@
+html, body {
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #f0f8ff;
+  text-align: center;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+  
+
+  #container {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+  }
+
+  h1 {
+    color: #004AAD;
+    margin-top: 3rem;
+  }
+
+  #quote {
+    padding: 0 2rem;
+    font-size: 1.5rem;
+    color: #004AAD;
+    font-style: italic;
+    }
+  
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 40px;
+  }
+      
+  .character {
+    position: relative;
+    width: 120px;
+    height: 150px;
+    margin: 0 40px;
+  }
+  
+  .body {
+    font-size: 80px;
+    transition: transform 0.3s;
+  }
+  
+  .arm {
+    position: absolute;
+    top: 60px;
+    left: 85px;
+    height: 20px;
+    width: 90px;                   /* default width */
+    display: flex;
+    justify-content: flex-end;      /* ✅ hand sticks to right end */
+    align-items: center;
+    transition: width 0.4s ease;
+    z-index: 5;  /* Ensure it's above the right character's container */
+    animation:extendArm 2s ease-in-out infinite;
+  }  
+  .arm-extension {
+    height: 10px;
+    background-color: #FFB744;
+    border-radius: 5px;
+    flex-grow: 1;                   /* ✅ fills space before the hand */
+  }
+    
+  .hand {
+    font-size: 24px;
+    width: 30px;                   /* ✅ reserve space */
+    text-align: left;
+    line-height: 1;
+    margin-left: -6px; /* ✅ slight overlap with arm-extension */
+    z-index: 10;         /* ✅ high enough to appear above the face */
+    position: relative;  /* needed for z-index to apply */
+    
+  }
+  #right-character {
+    position: relative;
+    z-index: 1; /* ✅ Lower than the hand */
+  }  
+    
+  .options {
+    color: #004AAD;
+  }
+  
+  button {
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    margin: 10px;
+    padding: 12px 20px;
+    font-size: 20px;
+    cursor: pointer;
+    color: #004AAD;
+  }
+  
+  .hit {
+    animation: pokeReaction 0.3s ease;
+    color: red;
+  }
+
+  @keyframes pokeReaction {
+    0% { transform: translateX(0); }
+    50% { transform: translateX(10px) rotate(5deg); }
+    100% { transform: translateX(0); }
+  }
+
+  
+@keyframes extendArm {
+  0% { width: 70px; }
+  100% { width: 120px; } /* Final extended width */
+}
+  
+  #dialogue-bubble {
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    position: absolute;
+    top: 100px;              /* float under head */
+    right: 0;
+    background: #fff8dc;
+    border: 2px solid #444;
+    color: #004AAD;
+    border-radius: 12px;
+    padding: 6px 10px;
+    font-size: 20px;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    max-width: 140px;
+  }
+  
+  footer {
+    background-color: #004AAD;
+    color: white;
+    text-align: center;
+    font-size: 0.9em;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+footer p {
+  padding-right: 10px;
+}
+
+footer a {
+  color: white;
+  padding-right: 10px;
+}
+
+
+@media (max-width: 600px) {
+
+  footer {
+      text-align: center;
+      font-size: 0.9em;
+      box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      bottom: 0;
+      width: 100%;
+  }
+
+  footer p {
+      padding-right: 0;
+  }
+  
+
+  footer a {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      padding: 3px;
+      color: white;
+  }
+
+  footer a img {
+      width: 16px;
+  }
+  
+}
