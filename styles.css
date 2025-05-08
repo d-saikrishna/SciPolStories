@@ -50,16 +50,16 @@ html, body {
   
   .tooltip .tooltiptext {
     visibility: hidden;
-    width: 200%;
-    background-color: #004bad31;
-    color: #000000;
-    text-align: center;
+    width: 100%;
+    background-color: #004bad;
+    color: #ffffff;
+    text-align: left;
     border-radius: 6px;
     padding: 4px;
     position: absolute;
     z-index: 1;
-    bottom: -50%;
-    left: 110%;
+    top: 100%;
+    left: 100%;
     opacity: 0;
     transition: opacity 0.3s;
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;

@@ -1,6 +1,6 @@
 const pleasantSound = new Audio('intro-music-black-box-saxy-blasts-12574.mp3');  // Ensure correct path to your audio file
 pleasantSound.loop = true;  // Make the sound loop indefinitely
-pleasantSound.volume = 0.5;  // Optional: adjust the volume (0.0 to 1.0)
+pleasantSound.volume = 0.3;  // Optional: adjust the volume (0.0 to 1.0)
 // Play the sound
 pleasantSound.play();
 
@@ -17,13 +17,19 @@ const arm = document.getElementById("swinging-arm");
 const rightFace = document.getElementById("right-face");
 
 const dialogueBubble = document.getElementById("dialogue-bubble");
+let dialogueTimeout; // Store the timeout globally
 
 function showDialogue(text) {
   dialogueBubble.textContent = text;
   dialogueBubble.style.opacity = 1;
 
-  // Hide after 7 seconds
-  setTimeout(() => {
+  // Clear any existing timeout
+  if (dialogueTimeout) {
+    clearTimeout(dialogueTimeout);
+  }
+
+  // Set a new timeout
+  dialogueTimeout = setTimeout(() => {
     dialogueBubble.style.opacity = 0;
   }, 7000);
 }
